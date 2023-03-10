@@ -3,7 +3,7 @@ import cv2 as cv
 
 # https://docs.opencv.org/4.x/dc/da5/tutorial_py_drawing_functions.html
 
-img = cv.imread('lesson_3/lena.jpg', 0)
+img = cv.imread('get_started/lena.jpg', 0)
 # можем создать изображение с помощью np 
 # это изображение размером 255x255 с 3 каналами
 # img = np.zeros([512,512, 3])
