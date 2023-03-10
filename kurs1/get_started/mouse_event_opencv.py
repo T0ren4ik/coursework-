@@ -12,25 +12,28 @@ import numpy as np
 # фиксация события и передача параметров происходит в функции setMouseCallback
 # название окна должно быть одинаковым
 def click_event(event, x, y, flags, param):
-    font = cv.FONT_HERSHEY_SIMPLEX
-    
     if event == cv.EVENT_LBUTTONDOWN:
-        print(f"{x} , {y}")
-        strXY = str(x) + ", " + str(y)
-        cv.putText(img, strXY, (x, y), font, .5 ,(255, 255, 0), 2)
-        cv.imshow("image", img)
-    elif event == cv.EVENT_RBUTTONDOWN:
-        blue = img[y, x, 0]
-        green = img[y, x, 1]
-        red = img[y, x, 2]
-        strBGR = f"{blue} , {green}, {red}"
-        #strXY = str(blue) + ", " + str(green) + ", " + str(red)
-        cv.putText(img, strBGR, (x, y), font, .5 ,(0, 255, 255 ), 2)
-        cv.imshow("image", img)
-      
+      cv.circle(img, (x, y), 3, (0, 0, 255), -1, cv.LINE_AA)
+      points.append((x, y))
+      if len(points) >= 2:
+         cv.line(img, points[-2], points[-1], (255, 0, 0), 5)
+      cv.imshow("image", img)
+    elif event == cv. EVENT_RBUTTONDOWN:
+       blue = img[x, y, 0]
+       green = img[x, y, 1]
+       red = img[x, y, 2]
+       cv.circle(img, (x, y), 3, (0, 0, 255), -1, cv.LINE_AA)
+       myColorImage = np.zeros((512, 512, 3), np.uint8)
+
+       myColorImage[:] = [blue, green, red] # присвоение значений всем элементам
+       cv.imshow("Color", myColorImage)
+       cv.imshow("image", img)
+
 
 #img = np.zeros((512, 512, 3), np.uint8)
 img = cv.imread("get_started/lena.jpg")
+points = []
+
 cv.imshow("image", img)
 
 cv.setMouseCallback("image", click_event)
